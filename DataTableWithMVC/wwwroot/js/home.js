@@ -1,6 +1,6 @@
 ﻿    $(document).ready(function () {
 
-        $("#demoGrid").DataTable({
+        var demoTable = $("#demoGrid").DataTable({
 
             "searching": false,
             "paging": false,
@@ -16,11 +16,16 @@
             },
 
             "columns": [
-                { "data": "id", "name": "Id", "title": "Player Id", "autoWidth": true },
-                //{ "data": "name", "name": "Name", "title": "Player Name", "autoWidth": true },
+                //{ "data": "id", "name": "Id", "title": "Player Id", "autoWidth": true },
+                ////{ "data": "name", "name": "Name", "title": "Player Name", "autoWidth": true },
+                {
+                    "data": "id", "name": "Id", "title": "Player Id", "autoWidth": true, "render": function (data, type, full, meta) {
+                        return "<input type='text' class='trackInput' name='id' value='" + full.id + "'>"
+                    }
+                },
                 {
                     "data": "name", "name": "Name", "title": "Player Name", "autoWidth": true, "render": function (data, type, full, meta) {
-                        return "<input type='text' id='name' name='name' value='" + full.name + "'>"
+                        return "<input type='text' id='yo' class='trackInput' name='name' value='" + full.name + "'>"
                     }
                 },
                 {
@@ -33,7 +38,18 @@
                         return "<a class='btn btn-info' onclick='edittwo(" + full.id + ")'>Edit Two</a>";
                     }
                 }
-            ]
+            ],
+            "drawCallback": function (settings) {
+                $(".trackInput").on("change", function () {
+                    var $row = $(this).parents("tr");
+                    var rowData = demoTable.row($row).data();
+
+                    //Update the original data property with the new value
+                    rowData[$(this).attr('name')] = $(this).val();
+
+                    
+                })
+            }
 
         });
 
@@ -50,13 +66,14 @@ function SubmitAllRows() {
     var listOfPlayers = [];
 
     var data = $("#demoGrid").DataTable().rows().data();
-
+    
     /*Iterate through rows in datatable*/
     data.each(function (value, index) {
 
         var player = {
             Id: value.id,
             Name: value.name,
+            //Name: (value.MarkupValue !== undefined) ? value.MarkupValue : value.name,
         };
 
         listOfPlayers.push(player);
