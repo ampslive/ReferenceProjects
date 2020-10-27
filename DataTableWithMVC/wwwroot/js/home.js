@@ -69,14 +69,7 @@ function SubmitAllRows() {
     
     /*Iterate through rows in datatable*/
     data.each(function (value, index) {
-
-        var player = {
-            Id: value.id,
-            Name: value.name,
-            //Name: (value.MarkupValue !== undefined) ? value.MarkupValue : value.name,
-        };
-
-        listOfPlayers.push(player);
+        listOfPlayers.push(value);
     });
     var players = { 'players': listOfPlayers };
 
@@ -93,7 +86,6 @@ function SubmitAllRows() {
         data: players,
         success: function (response) {
             alert(response.success);
-            alert('successfully called.');
         },
         failure: function (response) {
             alert(response);
