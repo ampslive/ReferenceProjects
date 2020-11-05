@@ -45,6 +45,12 @@ namespace DataGridExample.Controllers
             return Json(new { success = "success--", data = viewModel });
         }
 
+        [HttpPost]
+        public IActionResult SaveEntireViewModel(HomeViewModel homeVM)
+        {
+            return Json(new { success = "success", data = homeVM });
+        }
+
 
         [HttpGet]
         public ActionResult EditData(int? id)

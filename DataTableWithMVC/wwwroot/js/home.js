@@ -93,3 +93,34 @@ function SubmitAllRows() {
     }); 
 
 }
+
+function SubmitAsModel() {
+    alert('Submit Model');
+
+    var listOfPlayers = [];
+
+    var data = $("#demoGrid").DataTable().rows().data();
+
+    /*Iterate through rows in datatable*/
+    data.each(function (value, index) {
+        listOfPlayers.push(value);
+    });
+    var players = { 'players': listOfPlayers };
+
+    var viewModel = {
+        TeamName: "SRH",
+        Players: listOfPlayers
+    }
+
+    $.ajax({
+        type: 'POST',
+        url: '/Home/SaveEntireViewModel',
+        data: viewModel,
+        success: function (response) {
+            alert(response.success);
+        },
+        failure: function (response) {
+            alert(response);
+        }
+    }); 
+}

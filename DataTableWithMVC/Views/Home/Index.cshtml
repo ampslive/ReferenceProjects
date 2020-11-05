@@ -4,7 +4,7 @@
 
 @model DataGridExample.ViewModels.HomeViewModel;
 
-
+<div id="myContainer">
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
@@ -20,7 +20,11 @@
     <button type="button" class="btn btn-active" onclick="SubmitAllRows()">Submit All</button>
 </div>
 
+<div class="d-table-row">
+    <button type="button" class="btn btn-active" onclick="SubmitAsModel()">Submit Model</button>
+</div>
 
+</div>
 <link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
 <link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
 
